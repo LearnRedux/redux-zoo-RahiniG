@@ -1,5 +1,6 @@
-import { LOAD_SUCCESS, loadSuccess } from '../src/actions';
-import zoo, { name, animals } from '../src/reducers';
+import { LOAD_SUCCESS, loadSuccess, SET_ZOO } from '../src/actions/zoo';
+// import zoo, { name, animals } from '../src/reducers';
+import { zoo, name, animals, presenceFilter } from '../src/reducers';
 
 describe('LoadAction', () => {
 

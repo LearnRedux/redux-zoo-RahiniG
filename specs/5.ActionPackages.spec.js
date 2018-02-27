@@ -1,4 +1,4 @@
-import * as actions from '../src/actions';
+import * as actions from '../src/actions/zoo';
 
 const TYPES = [
   'BREAK_OUT',
