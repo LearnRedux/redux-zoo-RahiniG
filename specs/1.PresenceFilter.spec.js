@@ -1,5 +1,5 @@
-import { SET_PRESENCE_FILTER, setPresenceFilter } from '../src/actions'
-import { presenceFilter } from '../src/reducers'
+import { SET_PRESENCE_FILTER, setPresenceFilter } from '../src/actions/zoo'
+import { filter } from '../src/reducers'
 
 describe('PresenceFilter', () => {
 
@@ -20,21 +20,21 @@ describe('PresenceFilter', () => {
   describe('presenceFilter reducer', () => {
 
     it('there should be a presenceFilter reducer', () => {
-      expect(presenceFilter).toEqual(expect.any(Function));
+      expect(setPresenceFilter).toEqual(expect.any(Function));
     });
 
     it('initial state should be "all"', () => {
-      const state = presenceFilter(undefined, {});
+      const state = filter(undefined, {});    
       expect(state).toBe('all');
     });
 
     it('should return the same state if no relevant action', () => {
-      const state = presenceFilter('absent', {});
+      const state = filter('absent', {});
       expect(state).toBe('absent');
     });
 
     it('should react tp setPresenceFilter action', () => {
-      const state = presenceFilter('present', setPresenceFilter('absent'));
+      const state = filter('present', setPresenceFilter('absent'));
       expect(state).toBe('absent');
     });
 

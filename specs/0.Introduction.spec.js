@@ -1,4 +1,4 @@
-import { SET_NAME, setName } from '../src/actions';
+import { SET_NAME, setName } from '../src/actions/zoo';
 import { name } from '../src/reducers';
 
 describe('introduction', () => {

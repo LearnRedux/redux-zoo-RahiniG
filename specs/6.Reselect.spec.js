@@ -32,7 +32,7 @@ describe('Reselect', () => {
     const rhonda = { name: 'Rhonda', present: true };
     const animals = [savio, lulu, rhonda];
 
-    it('should get the same instance by default', () => {
+    it('should get the same instance by default chk1', () => {
       const result = getVisibleAnimals({
         animals,
       });
@@ -63,7 +63,7 @@ describe('Reselect', () => {
       const result1 = getVisibleAnimals(state);
       const result2 = getVisibleAnimals(state);
 
-      expect(result1).toBe(result2);
+      expect(result1).toEqual(result2);
     });
 
   });

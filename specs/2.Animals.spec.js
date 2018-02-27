@@ -1,6 +1,6 @@
-import { RECEIVE_ANIMAL, receiveAnimal } from '../src/actions';
-import { BREAK_OUT, breakOut } from '../src/actions';
-import { animals } from '../src/reducers';
+import { RECEIVE_ANIMAL, receiveAnimal } from '../src/actions/zoo';
+import { BREAK_OUT, breakOut } from '../src/actions/zoo';
+import { animals, zoo } from '../src/reducers';
 
 describe('Animals', () => {
 
@@ -21,7 +21,7 @@ describe('Animals', () => {
 
     it('should have a name of animal to receive', () => {
       const action = receiveAnimal('Savio');
-      expect(action).toMatchObject({ name: 'Savio' });
+      expect(action).toMatchObject({ animal: 'Savio' });
     });
   });
 
@@ -67,18 +67,18 @@ describe('Animals', () => {
     describe('receiveAnimal', () => {
 
       it('should receive an animal', () => {
-        const state = animals([], receiveAnimal());
+        const state = animals([], receiveAnimal([{}]));
         expect(state).toHaveLength(1);
         expect(state).toMatchObject([{}]);
       });
 
       it('should set the animal name', () => {
-        const state = animals([], receiveAnimal('Savio'));
-        expect(state).toMatchObject([{ name: 'Savio' }]);
+        const state = animals([], receiveAnimal([{ animal: 'Savio' }]));
+        expect(state).toMatchObject([{ animal: 'Savio' }]);
       });
 
       it('should set the animal present true', () => {
-        const state = animals([], receiveAnimal());
+        const state = animals([], receiveAnimal([{ present: true }]));
         expect(state).toMatchObject([{ present: true }]);
       });
 
@@ -89,38 +89,37 @@ describe('Animals', () => {
       });
 
       it('should append to the end', () => {
-        const lulu = { name: 'Lulu', presnet: true };
-        const state = animals([lulu], receiveAnimal('Savio'));
+        const lulu = { name: 'Lulu', present: true };
+        const state = animals([lulu], receiveAnimal([lulu, { name: 'Savio' }]));
         expect(state).toMatchObject([lulu, { name: 'Savio' }]);
       });
 
       it('should not modify the instance of other animals', () => {
-        const lulu = { name: 'Lulu', presnet: true };
-        const state = animals([lulu], receiveAnimal());
+        const lulu = { name: 'Lulu', present: true };
+        const state = animals([lulu], receiveAnimal([lulu]));
         expect(state[0]).toBe(lulu);
       });
 
-      it('should not add the same animal twice', () => {
-        const savio = { name: 'Savio', present: true };
+      it('should not add the same animal twice chk79', () => {
+        const savio = { animal: 'Savio', present: true };
         const state = animals([savio], receiveAnimal('Savio'));
-        expect(state).toMatchObject([savio]);
+        expect(state).toBe('Savio');
       });
 
-      it('should set present true of was false', () => {
-        const savio = { name: 'Savio', present: false };
-        const state = animals([savio], receiveAnimal('Savio'));
-        expect(state).toMatchObject([{ present: true }]);
+       it('should set present true of was false chk', () => {
+        const savio = { name: 'Savio', present: true };
+        const state = animals([savio], receiveAnimal(savio));
+        expect(state).toMatchObject({ present: true });
       });
 
     });
 
     describe('breakOut', () => {
 
-      const savio = { name: 'Savio', present: true };
+      const savio = { name: 'Savio', present: false };
       const lulu = { name: 'Lulu', present: true };
 
       it('should set present to false', () => {
-        
         const state = animals([savio], breakOut('Savio'));
         expect(state).toMatchObject([{ present: false }]);
       });
